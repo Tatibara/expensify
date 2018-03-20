@@ -179,6 +179,14 @@ store.dispatch(sortByAmount());
 // store.dispatch(setStartDate()); // startDate undefined
 // store.dispatch(setEndDate(999)); // endDate 1250
 
+store.dispatch(addExpense({ description: 'Water bill', amount: 4500 }));
+store.dispatch(addExpense({ description: 'Gas bill', createdAt: 1000 }));
+store.dispatch(addExpense({ description: 'Rent', amount: 109500 }));
+
+const state = store.getState();
+const visibleExpenses = getVisibleExpenses(state.expenses, state.filters);
+console.log(visibleExpenses);
+
 const demoState = {
   expenses: [{
     id: 'poijasdfhwer',
