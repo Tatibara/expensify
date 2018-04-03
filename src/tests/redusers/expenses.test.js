@@ -63,21 +63,41 @@ test("should edit an expense", () => {
 
   const state = expensesReducer(expenses, action);
 
-  expect(state).toEqual([expenses[0], {...expenses[1], ...updates}, expenses[2]]);
+  expect(state).toEqual([
+    expenses[0],
+    { ...expenses[1], ...updates },
+    expenses[2]
+  ]);
 });
 
 test("should not edit an expense if id not found", () => {
-    const updates = {
-      description: "New Description",
-      note: "note"
-    };
-    const action = {
-      type: "EDIT_EXPENSE",
-      id: '-1',
-      updates
-    };
-  
-    const state = expensesReducer(expenses, action);
-  
-    expect(state).toEqual(expenses);
-  });
+  const updates = {
+    description: "New Description",
+    note: "note"
+  };
+  const action = {
+    type: "EDIT_EXPENSE",
+    id: "-1",
+    updates
+  };
+
+  const state = expensesReducer(expenses, action);
+
+  expect(state).toEqual(expenses);
+});
+
+test("should set expenses", () => {
+  /* const expensesData = [];
+
+  expenses.forEach(({id, description, note, amount, createdAt}) => {
+    expensesData[id] = { description, note, amount, createdAt };
+  }); */
+
+  const action = {
+    type: "SET_EXPENSES",
+    expenses: [expenses[1]]
+  };
+  const state = expensesReducer(undefined, action);
+
+  expect(state).toEqual([expenses[1]]);
+});
